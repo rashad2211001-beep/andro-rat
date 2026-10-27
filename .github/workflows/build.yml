@@ -1,0 +1,24 @@
+name: Build Android APK
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Unzip files
+      run: unzip AndroRAT-master.zip
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: Build with Gradle
+      run: |
+        cd AndroRAT-master/Android_Code
+        chmod +x gradlew
+        ./gradlew assembleDebug
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: AndroRAT-APK
+        path: AndroRAT-master/Android_Code/app/build/outputs/apk/debug/app-debug.apk
