@@ -12,13 +12,13 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Build with Gradle
+    - name: Build Release APK
       run: |
         cd AndroRAT-master/Android_Code
         chmod +x gradlew
-        ./gradlew assembleDebug
+        ./gradlew assembleRelease
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: AndroRAT-APK
-        path: AndroRAT-master/Android_Code/app/build/outputs/apk/debug/app-debug.apk
+        name: AndroRAT-APK-Release
+        path: AndroRAT-master/Android_Code/app/build/outputs/apk/release/app-release-unsigned.apk
